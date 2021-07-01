@@ -1,0 +1,25 @@
+<%- include("_header") -%>
+
+    <h3>Buscar url por data de inclusão</h3>
+
+    <form action="/urls" method="get">
+        <div class="form-horizontal">
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-2" for="original">Data Inclusão</label>
+                <div class="col-sm-8">
+                    <input autofocus class="form-control" name="data_inclusao" value="" />
+                </div>
+                <input type="submit" value="Update" class="btn btn-default btn-warning" />
+                <a class="btn btn-outline-dark cancel" href="/urls">Cancel</a>
+            </div>
+
+            <div class="col-sm-10">
+                <input type="submit" value="Update" class="btn btn-default btn-warning" />
+                <a class="btn btn-outline-dark cancel" href="/urls">Cancel</a>
+            </div>
+        </div>
+        </div>
+    </form>
+
+    <%- include("_footer") -%>
