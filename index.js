@@ -1,38 +1,41 @@
-//Fontes de estudo
-//https://blog.pagesd.info/2019/10/08/crud-with-express-sqlite-10-steps/
-//> git push -u origin main  
+const express = require("express")
 
-const express = require("express");
-
-const app = express();
+const app = express()
 
 app.listen(3000, () => {
-    console.log("Server started (http://localhost:3000/) !");
+    console.log("Server started (http://localhost:3000/) !")
 });
 
-app.set("view engine", "ejs");
+app.set("view engine", "ejs")
 
-const path = require("path");
+const path = require("path")
 
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "views"))
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")))
 
-app.use(express.urlencoded({ extended: true })); // <--- configuração do middleware
+app.use(express.urlencoded({ extended: false }))
 
-const sqlite3 = require("sqlite3").verbose();
+const swaggerUi = require('swagger-ui-express')
 
-const db_name = path.join(__dirname, "data", "urls.db");
+const sqlite3 = require("sqlite3").verbose()
+
+const db_name = path.join(__dirname, "data", "urls.db")
+/**
+ * 
+ * 
+ * 
+ */
 const db = new sqlite3.Database(db_name, err => {
     if (err) {
-        return console.error(err.message);
+        return console.error(err.message)
     }
-    console.log("Conexão feita com sucesso à base 'urls.db'");
+    console.log("Conexão feita com sucesso à base 'urls.db'")
 });
 
-var shortUrl = require('node-url-shortener');
+var shortUrl = require('node-url-shortener')
 
 const sql_create = `CREATE TABLE IF NOT EXISTS urls (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -43,23 +46,11 @@ const sql_create = `CREATE TABLE IF NOT EXISTS urls (
 
 db.run(sql_create, err => {
     if (err) {
-        return console.error(err.message);
+        return console.error(err.message)
     }
 });
 
-/* INSERE EXEMPLOS 
-const sql_insert = `INSERT INTO urls (original, encurtada, data_inclusao) VALUES
-  ('google.com', 'asdfasdfasdf', '2021-06-30'),
-  ('hostgator.com', 'asdfasdfasdf', '2021-06-30'),
-  ('murtafilho.net', 'asdfasdfasdf', '2021-06-30');`;
-db.run(sql_insert, err => {
-    if (err) {
-        return console.error(err.message);
-    }
-    console.log("Criados 3 urls de exemplo");
-});
 
-*/
 app.get("/", (req, res) => {
     res.render("index");
 });
